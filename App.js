@@ -1,18 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import Contador from './src/Contador'
+import Login from './src/Login/Login'
+
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height
 
 export default function App() {
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Login />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: width,
+    height: height,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
