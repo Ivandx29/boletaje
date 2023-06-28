@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import Contador from './src/Contador'
-import Login from './src/Login/Login'
+import Navigation from './src/Navigation';
+import Login from './src/Login/Login';
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height

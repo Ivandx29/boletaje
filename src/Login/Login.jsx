@@ -1,18 +1,31 @@
 import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, Alert } from 'react-native'
-import { Formik } from 'formik';
+import { Controller, useForm } from 'react-hook-form'
 
 width = Dimensions.get('window').width
 height = Dimensions.get('window').height
 
 const Login = () => {
 
+    //Funcion que retorna el mensaje de que falta un valor
+    const getFormErrorMessage = (name, message) => {
+        return (errors[name] && (<Text  > {" "} {message}{" "} </Text>));
+    };
+
+    //Control del formulario
+    const { control, formState: { errors }, reset, handleSubmit, } = useForm();
+
     const [usuario, setUsuario] = useState('')
     const [contraseña, setContraseña] = useState('')
 
-    const login = () => {
-        Alert.alert('Usuario: ' + usuario + ' Contraseña: ' + contraseña)
+    const onSubmit = async (data) => {
+        Alert.alert('Usuario: ' + data.usuario + ' Contraseña: ' + data.contraseña)
     }
+
+    const limpiar = () => {
+        setUsuario('')
+        setContraseña('')
+    };
 
     return (
         <View style={styles.container}>
@@ -22,23 +35,54 @@ const Login = () => {
             />
             <Text style={styles.title}>Login</Text>
             <Text>Usuario</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Usuario"
-                onChangeText={text => setUsuario(text)}
-                value={usuario}
-            />
+            <Controller
+                name="usuario"
+                control={control}
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                    <TextInput
+                        label="Usuario"
+                        style={styles.input}
+                        placeholder="Usuario"
+                        value={usuario}
+                        status={fieldState.invalid ? "danger" : "basic"}
+                        onChangeText={(dato) => {
+                            field.onChange(dato);
+                            setUsuario(dato);
+                        }}
+                    />
+                )}
+            ></Controller>
+            {getFormErrorMessage("usuario", "Usuario es requerido")}
             <Text>Contraseña</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                onChangeText={text => setContraseña(text)}
-                value={contraseña}
+            <Controller
+                name="contraseña"
+                control={control}
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                    <TextInput
+                        label="Contraseña"
+                        style={styles.input}
+                        placeholder="Contraseña"
+                        value={contraseña}
+                        status={fieldState.invalid ? "danger" : "basic"}
+                        onChangeText={(dato) => {
+                            field.onChange(dato);
+                            setContraseña(dato);
+                        }}
+                    />
+                )}
+            ></Controller>
+            {getFormErrorMessage("usuario", "Usuario es requerido")}
+            <Button
+                title="Limpiar formulario"
+                color="#492928"
+                onPress={limpiar}
             />
             <Button
                 title="Boton de Login"
                 color="#492928"
-                onPress={login}
+                onPress={() => { handleSubmit(onSubmit)(); }}
             />
         </View>
     )
@@ -54,6 +98,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     input: {
+        color: '#fff',
+        fontSize: 18,
         height: width * 0.1,
         width: width * 0.7,
         backgroundColor: '#9c3735',
