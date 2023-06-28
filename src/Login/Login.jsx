@@ -1,25 +1,32 @@
 import React, { useState } from 'react'
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, Alert } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, Alert, SafeAreaView } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
+import ActivityBar from '../components/ActivityBar';
 
 width = Dimensions.get('window').width
 height = Dimensions.get('window').height
 
-const Login = () => {
+const Login = ({ navigation }) => {
+    const [usuario, setUsuario] = useState('')
+    const [contraseña, setContraseña] = useState('')
+    const [visibleCargando, setVisibleCargando] = useState(false);
+
 
     //Funcion que retorna el mensaje de que falta un valor
     const getFormErrorMessage = (name, message) => {
-        return (errors[name] && (<Text  > {" "} {message}{" "} </Text>));
+        return (errors[name] && (Alert.alert(message)))
     };
 
     //Control del formulario
     const { control, formState: { errors }, reset, handleSubmit, } = useForm();
 
-    const [usuario, setUsuario] = useState('')
-    const [contraseña, setContraseña] = useState('')
 
     const onSubmit = async (data) => {
-        Alert.alert('Usuario: ' + data.usuario + ' Contraseña: ' + data.contraseña)
+        setVisibleCargando(true);
+        navigation.navigate('LectorQR')
+        setTimeout(() => {
+            setVisibleCargando(false);
+        }, 2000);
     }
 
     const limpiar = () => {
@@ -28,65 +35,67 @@ const Login = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Image
-                style={styles.logo}
-                source={require('../../assets/logoOITIC.jpeg')}
-            />
-            <Text style={styles.title}>Login</Text>
-            <Text>Usuario</Text>
-            <Controller
-                name="usuario"
-                control={control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                    <TextInput
-                        label="Usuario"
-                        style={styles.input}
-                        placeholder="Usuario"
-                        value={usuario}
-                        status={fieldState.invalid ? "danger" : "basic"}
-                        onChangeText={(dato) => {
-                            field.onChange(dato);
-                            setUsuario(dato);
-                        }}
-                    />
-                )}
-            ></Controller>
-            {getFormErrorMessage("usuario", "Usuario es requerido")}
-            <Text>Contraseña</Text>
-            <Controller
-                name="contraseña"
-                control={control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                    <TextInput
-                        label="Contraseña"
-                        style={styles.input}
-                        placeholder="Contraseña"
-                        value={contraseña}
-                        status={fieldState.invalid ? "danger" : "basic"}
-                        onChangeText={(dato) => {
-                            field.onChange(dato);
-                            setContraseña(dato);
-                        }}
-                    />
-                )}
-            ></Controller>
-            {getFormErrorMessage("usuario", "Usuario es requerido")}
-            <Button
-                title="Limpiar formulario"
-                color="#492928"
-                onPress={limpiar}
-            />
-            <Button
-                title="Boton de Login"
-                color="#492928"
-                onPress={() => { handleSubmit(onSubmit)(); }}
-            />
-        </View>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Image
+                    style={styles.logo}
+                    source={require('../../assets/logoOITIC.jpeg')}
+                />
+                <Text style={styles.title}>Login</Text>
+                <Text>Usuario</Text>
+                <Controller
+                    name="usuario"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                        <TextInput
+                            label="Usuario"
+                            style={styles.input}
+                            placeholder="Usuario"
+                            value={field.value}
+                            status={fieldState.invalid ? "danger" : "basic"}
+                            onChangeText={(dato) => {
+                                field.onChange(dato);
+                                setUsuario(dato);
+                            }}
+                        />
+                    )}
+                ></Controller>
+                {getFormErrorMessage("usuario", "Usuario es requerido")}
+                <Text>Contraseña</Text>
+                <Controller
+                    name="contraseña"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                        <TextInput
+                            label="Contraseña"
+                            style={styles.input}
+                            placeholder="Contraseña"
+                            value={field.value}
+                            status={fieldState.invalid ? "danger" : "basic"}
+                            onChangeText={(dato) => {
+                                field.onChange(dato);
+                                setContraseña(dato);
+                            }}
+                        />
+                    )}
+                ></Controller>
+                {getFormErrorMessage("contraseña", "Contraseña es requerido")}
+                <Button
+                    title="Limpiar formulario"
+                    color="#492928"
+                    onPress={limpiar}
+                />
+                <Button
+                    title="Boton de Login"
+                    color="#492928"
+                    onPress={() => { handleSubmit(onSubmit)(); }}
+                />
+            </View>
+            <ActivityBar visible={visibleCargando} />
+        </SafeAreaView>
     )
-
 }
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Pantallas dentro de la aplicación
 import Login from './Login/Login';
 import Contador from './Contador';
-
+import LectorQR from './LectorQR/LectorQR';
 
 // Navegador de menu
 const Stack = createNativeStackNavigator();
@@ -13,18 +13,12 @@ const { Navigator, Screen } = Stack;
 
 const Navigation = () => {
 
-    // const Navigator = () => (
-    //     <Navigator>
-    //         <Screen name="Login" component={Login} />
-    //         <Screen name="Contador" component={Contador} />
-    //     </Navigator>
-    // )
-
     return (
         <NavigationContainer>
-            <Navigator >
+            <Navigator initialRouteName="Login">
                 <Screen name="Login" component={Login} />
-                {/* <Screen name="Contador" component={Contador} /> */}
+                <Screen name="Contador" component={Contador} />
+                <Screen name="LectorQR" component={LectorQR} />
             </Navigator>
         </NavigationContainer>
     )
