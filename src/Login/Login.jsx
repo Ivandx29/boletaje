@@ -42,6 +42,7 @@ const Login = () => {
             />
         </View>
     )
+
 }
 
 const styles = StyleSheet.create({
