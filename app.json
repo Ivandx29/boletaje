@@ -6,16 +6,28 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "La aplicación accede a la cámara para poder escanear el codigo QR."
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/logoOITIC.jpeg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f6f3f3"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Esta aplicacion usara FaceID para validar el inicio de sesion.",
+        "NSCameraUsageDescription": "La aplicación accede a la cámara para poder escanear el codigo QR."
+      }
     },
     "android": {
       "adaptiveIcon": {

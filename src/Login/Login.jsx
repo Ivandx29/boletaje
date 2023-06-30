@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, Alert, SafeAreaView } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, SafeAreaView } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
 import ActivityBar from '../components/ActivityBar';
 
@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
 
     //Funcion que retorna el mensaje de que falta un valor
     const getFormErrorMessage = (name, message) => {
-        return (errors[name] && (Alert.alert(message)))
+        return (errors[name] && (<Text>{message}</Text>))
     };
 
     //Control del formulario
@@ -36,64 +36,68 @@ const Login = ({ navigation }) => {
 
     return (
         <SafeAreaView>
-            <View style={styles.container}>
-                <Image
-                    style={styles.logo}
-                    source={require('../../assets/logoOITIC.jpeg')}
-                />
-                <Text style={styles.title}>Login</Text>
-                <Text>Usuario</Text>
-                <Controller
-                    name="usuario"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState }) => (
-                        <TextInput
-                            label="Usuario"
-                            style={styles.input}
-                            placeholder="Usuario"
-                            value={field.value}
-                            status={fieldState.invalid ? "danger" : "basic"}
-                            onChangeText={(dato) => {
-                                field.onChange(dato);
-                                setUsuario(dato);
-                            }}
-                        />
-                    )}
-                ></Controller>
-                {getFormErrorMessage("usuario", "Usuario es requerido")}
-                <Text>Contraseña</Text>
-                <Controller
-                    name="contraseña"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState }) => (
-                        <TextInput
-                            label="Contraseña"
-                            style={styles.input}
-                            placeholder="Contraseña"
-                            value={field.value}
-                            status={fieldState.invalid ? "danger" : "basic"}
-                            onChangeText={(dato) => {
-                                field.onChange(dato);
-                                setContraseña(dato);
-                            }}
-                        />
-                    )}
-                ></Controller>
-                {getFormErrorMessage("contraseña", "Contraseña es requerido")}
-                <Button
-                    title="Limpiar formulario"
-                    color="#492928"
-                    onPress={limpiar}
-                />
-                <Button
-                    title="Boton de Login"
-                    color="#492928"
-                    onPress={() => { handleSubmit(onSubmit)(); }}
-                />
-            </View>
-            <ActivityBar visible={visibleCargando} />
+            <ScrollView
+                keyboardDismissMode='on-drag'
+            >
+                <View style={styles.container}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../assets/logoOITIC.jpeg')}
+                    />
+                    <Text style={styles.title}>Login</Text>
+                    <Text>Usuario</Text>
+                    <Controller
+                        name="usuario"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                            <TextInput
+                                label="Usuario"
+                                style={styles.input}
+                                placeholder="Usuario"
+                                value={field.value}
+                                status={fieldState.invalid ? "danger" : "basic"}
+                                onChangeText={(dato) => {
+                                    field.onChange(dato);
+                                    setUsuario(dato);
+                                }}
+                            />
+                        )}
+                    ></Controller>
+                    {getFormErrorMessage("usuario", "Usuario es requerido")}
+                    <Text>Contraseña</Text>
+                    <Controller
+                        name="contraseña"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                            <TextInput
+                                label="Contraseña"
+                                style={styles.input}
+                                placeholder="Contraseña"
+                                value={field.value}
+                                status={fieldState.invalid ? "danger" : "basic"}
+                                onChangeText={(dato) => {
+                                    field.onChange(dato);
+                                    setContraseña(dato);
+                                }}
+                            />
+                        )}
+                    ></Controller>
+                    {getFormErrorMessage("contraseña", "Contraseña es requerido")}
+                    <Button
+                        title="Limpiar formulario"
+                        color="#492928"
+                        onPress={limpiar}
+                    />
+                    <Button
+                        title="Boton de Login"
+                        color="#492928"
+                        onPress={() => { handleSubmit(onSubmit)(); }}
+                    />
+                </View>
+                <ActivityBar visible={visibleCargando} />
+            </ScrollView>
         </SafeAreaView>
     )
 }
