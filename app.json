@@ -15,7 +15,7 @@
       ]
     ],
     "splash": {
-      "image": "./assets/logoOITIC.jpeg",
+      "image": "./assets/logoOITIC.png",
       "resizeMode": "contain",
       "backgroundColor": "#f6f3f3"
     },
@@ -33,10 +33,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.brisa_garcia.boletaje"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b6670a7d-caa4-4199-8ef1-2ecc7c5987ad"
+      }
     }
   }
 }
