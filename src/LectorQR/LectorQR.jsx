@@ -83,6 +83,7 @@ const LectorQR = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </Camera>
+            <Button style={styles.buttonNavigation} onPress={() => { navigation.navigate('ThermalPrinter') }}>Ir a impresión</Button>
         </View >
     )
 }
@@ -107,6 +108,13 @@ const styles = StyleSheet.create({
     buttonFlashlight: {
         marginLeft: 15,
         backgroundColor: 'red',
+        borderRadius: 60,
+        borderColor: 'transparent',
+
+    },
+    buttonNavigation: {
+        marginLeft: 15,
+        backgroundColor: 'purple',
         borderRadius: 60,
         borderColor: 'transparent',
 

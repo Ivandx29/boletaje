@@ -23,10 +23,11 @@ const Login = ({ navigation }) => {
 
     const onSubmit = async (data) => {
         setVisibleCargando(true);
-        navigation.navigate('LectorQR')
         setTimeout(() => {
             setVisibleCargando(false);
+            navigation.navigate('ThermalPrinter')
         }, 2000);
+        limpiar();
     }
 
     const limpiar = () => {

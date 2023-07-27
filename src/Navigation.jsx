@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login/Login';
 import Contador from './Contador';
 import LectorQR from './LectorQR/LectorQR';
+import ThermalPrinter from './ThermalPrinter/ThermalPrinter';
 
 // Navegador de menu
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const Navigation = () => {
                 <Screen name="Login" component={Login} />
                 <Screen name="Contador" component={Contador} />
                 <Screen name="LectorQR" component={LectorQR} />
+                <Screen name="ThermalPrinter" component={ThermalPrinter} />
             </Navigator>
         </NavigationContainer>
     )

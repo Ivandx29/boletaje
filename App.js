@@ -5,6 +5,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 
