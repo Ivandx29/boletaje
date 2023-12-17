@@ -6,16 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "plugins": [
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "La aplicación accede a la cámara para poder escanear el codigo QR."
-        }
-      ]
-    ],
     "splash": {
-      "image": "./assets/logoOITIC.png",
+      "image": "./assets/cdchLogo.jpeg",
       "resizeMode": "contain",
       "backgroundColor": "#f6f3f3"
     },
